@@ -1,0 +1,18 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Order Detail
+{% endblock %}
+
+{% block body %}
+    <h1>Order Detail</h1>
+    <h2>Order Number: {{ order.order_number }}</h2>
+    <h3>Order Items:</h3>
+    <ul>
+        {% for item in order_items %}
+            <li>{{ item }}</li>
+        {% empty %}
+            <li>No items found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
