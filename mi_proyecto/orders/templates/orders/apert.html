@@ -34,17 +34,17 @@ Apertura de Caja
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Usuario</th>
-                    <th>Monto $</th>
-                    <th>Fecha</th>
+                    <th style="color: white;">Usuario</th>
+                    <th style="color: white;">Monto $</th>
+                    <th style="color: white;">Fecha</th>
                 </tr>
             </thead>
             <tbody>
                 {% for c in mostrar %}
                 <tr>
-                    <td>{{c.usuario}}</td>
-                    <td>{{c.monto}}</td>
-                    <td>{{c.fecha_ingreso}}</td>
+                    <td style="color: white;">{{c.usuario}}</td>
+                    <td style="color: white;">{{c.monto}}</td>
+                    <td style="color: white;">{{c.fecha_ingreso}}</td>
                 </tr>
                 {% endfor %}               
             </tbody>

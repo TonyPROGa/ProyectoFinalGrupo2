@@ -1,0 +1,87 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Order Detail
+{% endblock %}
+
+{% block body %}
+    <h1>Order Detail</h1>
+    <h2>Order Number: {{ order.order_number }}</h2>
+    <h3>Order Items:</h3>
+    <ul>
+        {% for item in order_items %}
+            <li>{{ item }}</li>
+        {% empty %}
+            <li>No items found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% for eso in mostr %}
+            {% with order_number|add:-1 as order_number_minus_one %}
+                {% for cart_list in most|slice:"::-1"|slice:order_number_minus_one %}
+                    <li>{{ cart_list.order_number }}</li>
+                    <li>{{ cart_list.precio_total }}</li>
+                    <li>{{ cart_list.cart_id }}</li>
+                    <li>{{ eso.item_id }}</li>
+                {% empty %}
+                    <li>No hay elementos para mostrar.</li>
+                {% endfor %}
+            {% endwith %}
+        {% endfor %}
+        <hr>
+
+------------
+ventas.html
+
+{% extends "orders/base.html" %}
+
+{% block title %}
+Ventas
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
+        <h2>Listado</h2>
+        <ul>
+            
+            
+            
+        <hr>          
+            
+        </ul>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 ">
+      <h1>Ordenes</h1>
+      <div class="table-responsive">
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Usuario</th>
+                      <th>Carta</th>
+                      <th>N° de Orden</th>
+                      <th>Precio</th>
+                      <th>Completado</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for c in most %}
+                    
+                    <tr>
+                        <td>{{c.user_id}}</td>
+                        <td><button class="btn btn-primary" type="submit">Ver</button></td>
+                        <td>{{c.order_number}}</td>
+                        <td>{{c.precio_total}}</td>
+                        <td>{{c.complete}}</td>
+                    </tr>
+                  {% endfor %}               
+              </tbody>
+              
+          </table>
+      </div>
+    </div>  
+</div>
+
+{% endblock %}

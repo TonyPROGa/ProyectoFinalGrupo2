@@ -80,6 +80,7 @@ class Order(models.Model):
 	complete = models.BooleanField(default=False)
 	order_number = models.PositiveIntegerField(unique=True)  # Campo para la ID numérica
 	precio_total = models.FloatField(null=True, blank=True)  # Nuevo campo para el precio total
+	contenido = models.TextField(null=True, blank=True)
 
 	
 

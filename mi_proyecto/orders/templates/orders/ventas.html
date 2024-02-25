@@ -8,24 +8,12 @@ Ventas
 
 <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
-      <h2>Listado</h2>
-      <ul>
-        {% with order_number|add:-1 as order_number_minus_one %}
-            {% for cart_list in most|slice:"::-1"|slice:order_number_minus_one %}
-                <li>{{ cart_list.order_number }}</li>
-                <li>{{ cart_list.precio_total }}</li>
-            {% empty %}
-                <li>No hay elementos para mostrar.</li>
-            {% endfor %}
-        {% endwith %}
-        <hr>
-        
-        {% for cart_list in mostr %}
-          
-            <li>{{ cart_list.item_id }}</li>
-           
-        {% endfor %}
-    </ul>
+        <h2>Listado</h2>
+        <ul id="listado-items">
+            
+        <hr>          
+            
+        </ul>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 ">
       <h1>Ordenes</h1>
@@ -33,22 +21,29 @@ Ventas
           <table class="table table-striped">
               <thead>
                   <tr>
-                      <th>Usuario</th>
-                      <th>Carta</th>
-                      <th>N° de Orden</th>
-                      <th>Precio</th>
-                      <th>Completado</th>
+                      <th style="color: white;">Usuario</th>
+                      <th style="color: white;">Carta</th>
+                      <th style="color: white;">N° de Orden</th>
+                      <th style="color: white;">Precio</th>
+                      <th style="color: white;" colspan="2">Completado</th>
+                      <th style="color: white;">Ver</th>
                   </tr>
               </thead>
               <tbody>
                   {% for c in most %}
                     
                     <tr>
-                        <td>{{c.user_id}}</td>
-                        <td><button class="btn btn-primary" type="submit">Ver</button></td>
-                        <td>{{c.order_number}}</td>
-                        <td>{{c.precio_total}}</td>
-                        <td>{{c.complete}}</td>
+                        <td style="color: white;">{{c.user_id}}</td>
+                        <td><button class="btn btn-primary ver-btn" type="button" data-order-number="{{c.order_number}}" data-contenido="{{c.contenido}}">Ver</button></td>
+                        <td style="color: white;">{{c.order_number}}</td>
+                        <td style="color: white;">{{c.precio_total}}</td>
+                        <td style="color: white;">{% if c.complete %}
+                                                        completado     <a href="{% url 'eliminarOrden' c.pk %}" class="btn btn-info">eliminar</a>
+                                                    {% else %}
+                                                        {% if c.order_number %}
+                                                            <a href="{% url 'pagarOrden' order_number=c.order_number %}" class="btn btn-info">Enviar</a>
+                                                        {% endif %}
+                                                    {% endif %}</td>
                     </tr>
                   {% endfor %}               
               </tbody>
@@ -56,6 +51,27 @@ Ventas
           </table>
       </div>
     </div>  
-  </div>
+</div>
+<script>
+    document.querySelectorAll('.ver-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var orderNumber = this.getAttribute('data-order-number');
+            var contenidoitem = this.getAttribute('data-contenido');
+            var listadoItems = document.getElementById('listado-items');
 
+            // Borrar el contenido anterior del elemento con el ID 'listado-items'
+            while (listadoItems.firstChild) {
+                listadoItems.removeChild(listadoItems.firstChild);
+            }
+            // Crear un nuevo elemento de lista para el número de orden
+            var newOrderItem = document.createElement('li');
+            newOrderItem.textContent = 'N° de Orden: ' + orderNumber;
+            listadoItems.appendChild(newOrderItem);
+            // Crear un nuevo elemento de lista para el contenido del ítem
+            var newContentItem = document.createElement('li');
+            newContentItem.textContent = contenidoitem;
+            listadoItems.appendChild(newContentItem);
+        });
+    });
+</script>
 {% endblock %}

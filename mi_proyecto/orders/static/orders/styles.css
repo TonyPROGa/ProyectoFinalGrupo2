@@ -1,0 +1,8 @@
+body{
+    background-color: #006;
+    color: rgb(243, 235, 232);
+}
+
+.table-responsive{
+    color: #ece6e6; /* Cambia este valor por el color que deseas para el texto de las celdas de la tabla */
+}

@@ -13,6 +13,7 @@ from django.dispatch import receiver
 
 
 
+
 from .models import Size, Category, Topping, Price_List, Item_List, Cart_List, Extra, Order, AperturaCaja, CierreCaja
 
 # Create your views here.
@@ -118,7 +119,7 @@ def cart_view(request):
 		for extra in extras: 
 			new_item.extra.add(extra)
 		# return HttpResponseRedirect(reverse("cart"))
-		messages.success(request, "Meal added to cart!")
+		messages.success(request, "¡Comida agregada al carrito!")
 		return HttpResponseRedirect(reverse("index"))
 		# return render(request, "orders/index.html", {"message": "Meal added to cart!"})
 
@@ -164,14 +165,18 @@ def order_view(request):
 		new_order = Order(user_id=user, complete=False)
 		new_order.save()
 
-
+		todo = []
 		total_price = 0
 		for item in items:
 			cart_item = Cart_List.objects.get(id=item)
 			new_order.cart_id.add(cart_item)
 			total_price += cart_item.calculated_price
+			todo.append(str(cart_item))
 		new_order.precio_total = total_price
+		new_order.contenido = "\n".join(todo)
 		new_order.save()
+
+
 
 
 
@@ -251,3 +256,20 @@ def order_detail(request, order_number):
         'order_items': order_items,
     }
     return render(request, 'orders/order_detail.html', context)
+
+
+def eliminarOrden(request, order_number):
+	curso = Order.objects.get(pk=order_number)
+	curso.delete()
+
+	messages.success(request, 'Se elimino la orden!')
+	return redirect("/")
+
+def pagarOrden(request, order_number):
+	pagar = Order.objects.get(order_number=order_number)
+	pagar.complete = True
+	pagar.save()
+
+	messages.success(request, 'Orden Enviada')
+	return redirect("/")
+
