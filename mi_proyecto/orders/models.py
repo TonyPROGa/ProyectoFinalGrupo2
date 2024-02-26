@@ -95,9 +95,11 @@ class AperturaCaja(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
+    caja_num = models.PositiveSmallIntegerField(default=1)
+    
 
     def __str__(self):
-        return f"Apertura de caja por {self.usuario.username} el {self.fecha_ingreso} MONTO:$ {self.monto}"
+       return f"Apertura de caja N° {self.caja_num} por {self.usuario.username}, el {self.fecha_ingreso} - MONTO:$ {self.monto}"
 	
 class CierreCaja(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -105,4 +107,4 @@ class CierreCaja(models.Model):
     fecha_cierre = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Cierre de caja por {self.usuario.username} el {self.fecha_cierre} MONTO:$ {self.monto}"
+        return f"Cierre de caja por {self.usuario.username}, el {self.fecha_cierre} - MONTO:$ {self.monto}"

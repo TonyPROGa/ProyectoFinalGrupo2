@@ -9,12 +9,23 @@ Apertura de Caja
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
     <h2>Apertura de caja</h2>
-    <form action="/agregar_monto/" method="POST">
-        {% csrf_token %}
-        <label for="monto">Monto:</label>
-        <input type="text" id="monto" name="monto">
-        <button type="submit">Agregar</button>
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <form action="/agregar_monto/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" id="monto" name="monto" class="form-control" placeholder="Monto de Apertura" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="caja_num" name="caja_num" class="form-control" min="1" max="1" placeholder="N° de Caja" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+        
+            </form>
+        </div>
+    </div>
     <!--
     <div class="card">
         <div class="card-body">

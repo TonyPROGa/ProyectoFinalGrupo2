@@ -220,11 +220,12 @@ def apertura_caja_view(request):
 
 @login_required
 def agregar_monto(request):
-    monto = request.POST.get('monto')
+    monto = request.POST['monto']
     usuario = request.user
     fecha_ingreso = timezone.now()
+    caja_num = request.POST['caja_num']
 
-    curso = AperturaCaja.objects.create(usuario=usuario, monto=monto, fecha_ingreso=fecha_ingreso)
+    curso = AperturaCaja.objects.create(usuario=usuario, monto=monto, fecha_ingreso=fecha_ingreso, caja_num=caja_num)
     messages.success(request, 'Apertura de caja con exito!') 
     return redirect("/")
 
