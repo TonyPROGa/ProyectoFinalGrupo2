@@ -5,12 +5,12 @@ Apertura de Caja
 {% endblock %}
 
 {% block body %}
-
+{% if user.is_authenticated %}
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
     <h2>Apertura de caja</h2>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="background-color: #a87942; background-color: #311c07; ">
             <form action="/agregar_monto/" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
@@ -20,7 +20,8 @@ Apertura de Caja
                     <input type="text" id="caja_num" name="caja_num" class="form-control" min="1" max="1" placeholder="N° de Caja" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    <button type="submit" class="btn btn-success btn-block text-white" style="color: #a87942;
+                    background-color: #a87942; border-color: #a76528;">Guardar</button>
                 </div>
         
             </form>
@@ -46,6 +47,7 @@ Apertura de Caja
             <thead>
                 <tr>
                     <th style="color: white;">Usuario</th>
+                    <th style="color: white;">N° Caja</th>
                     <th style="color: white;">Monto $</th>
                     <th style="color: white;">Fecha</th>
                 </tr>
@@ -54,6 +56,7 @@ Apertura de Caja
                 {% for c in mostrar %}
                 <tr>
                     <td style="color: white;">{{c.usuario}}</td>
+                    <td style="color: white;">{{c.caja_num}}</td>
                     <td style="color: white;">{{c.monto}}</td>
                     <td style="color: white;">{{c.fecha_ingreso}}</td>
                 </tr>
@@ -63,6 +66,9 @@ Apertura de Caja
     </div>
   </div>  
 </div>
+{% else %}
+<h1>POR FAVOR, LOGUEARSE</h1>
+{% endif %}
 <!--
 <u1>
     {% for c in mostrar %}

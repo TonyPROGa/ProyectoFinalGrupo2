@@ -1,11 +1,16 @@
 {% extends "orders/base.html" %}
-
+{% load static %}
 {% block title %}
-Ventas
+Ordenes
 {% endblock %}
 
 {% block body %}
-
+<style>
+    body {
+        background-image: url('{% static "imagenes/fondo.png" %}');
+        background-size: cover;
+    }
+</style>
 <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
         <h2>Listado</h2>
@@ -21,11 +26,11 @@ Ventas
           <table class="table table-striped">
               <thead>
                   <tr>
-                      <th style="color: white;">Usuario</th>
+                      <th style="color: white;">Mozo</th>
                       <th style="color: white;">Carta</th>
                       <th style="color: white;">N° de Orden</th>
                       <th style="color: white;">Precio</th>
-                      <th style="color: white;" colspan="2">Completado</th>
+                      <th style="color: white;">Estado</th>
                       <th style="color: white;">Ver</th>
                   </tr>
               </thead>
@@ -36,14 +41,21 @@ Ventas
                         <td style="color: white;">{{c.user_id}}</td>
                         <td><button class="btn btn-primary ver-btn" type="button" data-order-number="{{c.order_number}}" data-contenido="{{c.contenido}}">Ver</button></td>
                         <td style="color: white;">{{c.order_number}}</td>
-                        <td style="color: white;">{{c.precio_total}}</td>
+                        <td style="color: white;">${{c.precio_total}}</td>
                         <td style="color: white;">{% if c.complete %}
-                                                        completado     <a href="{% url 'eliminarOrden' c.pk %}" class="btn btn-info">eliminar</a>
+                                                        Procesada     <small><a href="{% url 'eliminarOrden' c.pk %}" >(eliminar)</a></small>
                                                     {% else %}
                                                         {% if c.order_number %}
-                                                            <a href="{% url 'pagarOrden' order_number=c.order_number %}" class="btn btn-info">Enviar</a>
+                                                            <a href="{% url 'pagarOrden' order_number=c.order_number %}" class="btn btn-info">¿Procesar?</a>
                                                         {% endif %}
                                                     {% endif %}</td>
+                        <td>{% if c.complete %}
+                                <a href="{% url 'facturas' %}" target="_blank">
+                                <button class="btn btn-primary ver-btn" type="button">Finalizar</button></a>
+                            {% else %}
+                                <button class="btn btn-primary ver-btn" type="button" style="color: rgba(165, 42, 42, 0.459);">Finalizar</button>
+                            {% endif %}
+                        </td>
                     </tr>
                   {% endfor %}               
               </tbody>
@@ -52,6 +64,7 @@ Ventas
       </div>
     </div>  
 </div>
+
 <script>
     document.querySelectorAll('.ver-btn').forEach(function(button) {
         button.addEventListener('click', function() {

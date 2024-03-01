@@ -17,5 +17,8 @@ urlpatterns = [
     path('order/<int:order_number>/', views.order_detail, name='order_detail'),
     path("eliminarOrden/<int:order_number>/", views.eliminarOrden, name="eliminarOrden"),
     path("pagarOrden/<int:order_number>/", views.pagarOrden, name="pagarOrden"),
+    path("mesas/", views.mesas_view, name="mesas"),
+    path("facturas/", views.facturas_view, name="facturas"),
+    path('convert_to_pdf/', views.convert_to_pdf, name='convert_to_pdf'),
     ]
     

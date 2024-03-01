@@ -32,7 +32,7 @@
 				</h5>
 
 	    			<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{item.id}}">
+				<button type="button" class="btn btn-primary btn-custom" data-toggle="modal" data-target="#exampleModalCenter{{item.id}}">
 				  Agregar al Carrito
 				</button>
 
@@ -40,7 +40,7 @@
 				<!-- Modal -->
 			<div class="modal fade" id="exampleModalCenter{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-dialog-centered" role="document">
-			    <div class="modal-content">
+			    <div class="modal-content" style="background-color: #160e0cb2;">
 			    	<form action="{% url 'cart' %}" method="post">	
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalLongTitle">{{ item.category.name }}</h5>
@@ -92,7 +92,7 @@
 
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 			        <button class="btn btn-primary" type="submit">Agregar al Carrito</button>
 						
 			      </div>
@@ -141,7 +141,16 @@
 
 <!-- end of row subs -->
 	</div>
+<style>
+.btn-custom {
+	background-color: #483109a1;
+    border-color: #007bff;
+}
 
+.modal-content-custom {
+  background-color: #160e0cb2;
+}
+</style>
 
 {% endblock %}
 

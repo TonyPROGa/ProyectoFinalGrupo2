@@ -9,19 +9,20 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href=" {% static 'orders/styles.css' %}">
 	<title>{% block title %}{% endblock %}</title>
+  
 </head>
 <body>
   <!-- Body para tablas de js-->
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-	<nav class="navbar navbar-expand-lg navbar-light bg-info">
+	<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
   <a class="navbar-brand" href="{% url 'index'%}">RESTAURANT BRUNNETTE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-info">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-custom">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Grupo N°2</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +32,9 @@
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Inicio</a>
           <a class="nav-link" href="{% url 'apert_caja'%}">Apertura de Caja</a>
-          <a class="nav-link" href="{% url 'ventas'%}">Ventas</a>
+          <a class="nav-link" href="{% url 'ventas'%}">Ordenes</a>
+          <a class="nav-link" href="{% url 'mesas'%}">Mesas</a>
+          <a class="nav-link" href="{% url 'cart'%}">Carrito de Compras</a>
           
         </div>
       </div>
@@ -41,16 +44,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'cart'%}">Carrito de Compras</a>
-      </li>
+      
       {% if not request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-info" style="background-color: #3f2400;" href="{% url 'login' %}">Entrar</a>
       </li>
       {% else %}
       <li class="nav-item">
-      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      <a class="btn btn-info" style="background-color: #3f2400;" href="{% url 'logout' %}">Salir</a>
+      
       </li>
       {% endif %}
     </ul>
@@ -64,18 +66,40 @@
         {% endfor %}
     <!-- </ul> -->
     {% endif %}
-	<div class="container py-4">	
+<div class="container py-4" style="margin-top: 60px;">	
 
 
 
 	{% block body %}
   {% endblock %}
 
-  </div>
+</div>
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+<style>
+  body {
+        background-image: url('{% static "imagenes/fondolimpio1.png" %}');
+        background-size: 999px 663px;
+        background-position: top;
+        background-repeat: repeat-x;
+        background-attachment: fixed;
+    }
+
+  .navbar-custom {
+    background-color: #ec921a45;
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+</style>
 </html>

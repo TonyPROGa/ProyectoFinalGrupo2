@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="">
+    <title>Facturas B</title>
+</head>
+<body>
+<div class="container">
+    <h2>Factura</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in morder %}
+            <tr>
+                <td>{{ item.order_number }}</td>
+                <td>{{ item.user_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Total: {{ morder.precio_total }}</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Pago Efectivo:</h4>
+                    <p>{{ morder.pago_efectivo }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Vuelto:</h4>
+                    <p>{{ morder.vuelto }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>Mesa: {{ morder.mesa }}</h4>
+    <a href="{% url 'convert_to_pdf' %}" class="btn btn-primary">Descargar Factura</a>
+</div>
+
+<style>
+    .container {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+</body>
+</html>

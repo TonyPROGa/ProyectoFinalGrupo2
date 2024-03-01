@@ -1,0 +1,72 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+
+{% block title %}
+Mesas
+{% endblock %}
+
+
+{% block body %}
+<style>
+    body {
+        background-image: url('{% static "imagenes/fondolimpio.png" %}');
+        background-size: 999px 663px;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+    }
+
+    .mesa {
+        display: inline-block;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        background-color: rgba(160, 247, 148, 0.5);
+    }
+
+    .mesa button {
+        background-color: #9d8e58;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+    }
+
+    .mesa.active {
+        background-color: rgba(238, 117, 117, 0.493);
+    }
+
+    .mesa input {
+        border: none;
+        outline: none;
+        background-color: rgba(200, 204, 252, 0.5);
+        width: 150px; /* Ajusta el ancho */
+        height: 30px; /* Ajusta el alto */
+        border-radius: 20%;
+        text-align: center;
+        margin-left: 10px; /* Ajusta el margin */
+        margin-top: 30px;
+    }
+</style>
+<!--<img src="{% static "imagenes/mesas.png" %}"/>-->
+<div class="mesa">
+    <button onclick="this.parentElement.classList.toggle('active')">Mesa 1</button>
+    <input type="text" placeholder="Mozo" min="1" max="9" required>
+</div>
+<div class="mesa">
+    <button onclick="this.parentElement.classList.toggle('active')">Mesa 2</button>
+    <input type="text" placeholder="Mozo" min="1" max="9" required>
+</div>
+<div class="mesa">
+    <button onclick="this.parentElement.classList.toggle('active')">Mesa 3</button>
+    <input type="text" placeholder="Mozo" min="1" max="9" required>
+</div>
+<div class="mesa">
+    <button onclick="this.parentElement.classList.toggle('active')">Mesa 4</button>
+    <input type="text" placeholder="Mozo" min="1" max="9" required>
+</div>
+<!-- Agrega más mesas según sea necesario -->
+{% endblock %}

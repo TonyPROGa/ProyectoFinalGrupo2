@@ -1,0 +1,22 @@
+
+body {
+    background-image: url('{% static "imagenes\mesas.png" %}');
+    background-size: cover;
+}
+
+.mesa {
+    display: inline-block;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.mesa input {
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5);
+}

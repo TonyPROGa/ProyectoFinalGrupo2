@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-
+from xhtml2pdf import pisa
+from django.template.loader import render_to_string
 
 
 
@@ -209,7 +210,7 @@ def removefromcart_view(request, cart_id):
 
 	item_toremove = Cart_List.objects.get(pk=cart_id)
 	item_toremove.delete()
-	messages.info(request,"This item has been removed from your cart.")
+	messages.info(request,"El item ha sido removido de la Carta.")
 	return HttpResponseRedirect(reverse("cart"))
 
 
@@ -266,6 +267,7 @@ def eliminarOrden(request, order_number):
 	messages.success(request, 'Se elimino la orden!')
 	return redirect("/")
 
+
 def pagarOrden(request, order_number):
 	pagar = Order.objects.get(order_number=order_number)
 	pagar.complete = True
@@ -274,3 +276,39 @@ def pagarOrden(request, order_number):
 	messages.success(request, 'Orden Enviada')
 	return redirect("/")
 
+def mesas_view(request):
+    context = {
+		"orden" : Order.objects.all(),
+        "lista" : Cart_List.objects.all()
+	}
+    return render(request, "orders/mesas.html", context)
+
+def facturas_view(request):
+    context = {
+		"morder" : Order.objects.all(),
+        "mcart" : Cart_List.objects.all()
+	}
+    return render(request, "orders/facturas.html", context)
+
+def convert_to_pdf(request):
+    # Carga el archivo html que deseas convertir
+    template = 'orders/facturas.html'
+    context = {'morder': request.user.order_set.all()}
+    html_content = render_to_string(template, context)
+
+    # Crea un HttpResponse con el tipo de contenido 'application/pdf'
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="output.pdf"'
+
+    # Convierte el archivo html en un archivo pdf utilizando xhtml2pdf
+    pisa_status = pisa.CreatePDF(
+        html_content,
+        dest=response,
+        encoding='UTF-8'
+    )
+
+    # Si la conversión fue exitosa, devuelve el archivo pdf
+    if pisa_status.err:
+        return HttpResponse('Error al convertir el archivo html a pdf: ' + str(pisa_status.err))
+    else:
+        return response
